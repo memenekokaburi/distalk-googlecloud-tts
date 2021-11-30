@@ -8,8 +8,8 @@ import emoji
 import json
 from google.cloud import texttospeech
 
-#import wikipedia
-import pya3rt #A3RTのTalk APIを使用
+import wikipedia
+#import pya3rt #A3RTのTalk APIを使用
 # import requests
 # import sys #終了時に使用
 
@@ -217,27 +217,27 @@ def tts(message):
         out.write(response.audio_content)
 
 #wiki
-# @client.command()
-# async def wiki(ctx, *args):
-#     print("received message: " + str(args))
-#     if client.user != ctx.message.author:
-#         try:
-#             wikipedia.set_lang("ja")
-#             text=wikipedia.summary(args, auto_suggest=False)
-#             await ctx.send(text)
-#         except:
-#             await ctx.send("検索エラー！")
+@client.command()
+async def wiki(ctx, *args):
+    print("received message: " + str(args))
+    if client.user != ctx.message.author:
+        try:
+            wikipedia.set_lang("ja")
+            text=wikipedia.summary(args, auto_suggest=False)
+            await ctx.send(text)
+        except:
+            await ctx.send("検索エラー！")
 
 #talkapi
-@client.command()
-async def talk(ctx, *args):
-    talk_url = "https://api.a3rt.recruit.co.jp/talk/v1/smalltalk"
-    payload = {"apikey": talk_api, "query": args}
-    response = requests.post(talk_url, data=payload)
-    try:
-        await ctx.send(response.json()["results"][0]["reply"])
-    except:
-        print(response.json())
-        await ctx.send("ごめんなさい。もう一度教えて下さい。")
+# @client.command()
+# async def talk(ctx, *args):
+#     talk_url = "https://api.a3rt.recruit.co.jp/talk/v1/smalltalk"
+#     payload = {"apikey": talk_api, "query": args}
+#     response = requests.post(talk_url, data=payload)
+#     try:
+#         await ctx.send(response.json()["results"][0]["reply"])
+#     except:
+#         print(response.json())
+#         await ctx.send("ごめんなさい。もう一度教えて下さい。")
 
 client.run(token)
