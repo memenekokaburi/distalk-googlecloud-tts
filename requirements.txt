@@ -1,4 +1,3 @@
-discord.py[voice]
 google-cloud-texttospeech
 emoji
 wikipedia==1.4.0
