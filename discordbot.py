@@ -66,7 +66,7 @@ async def on_guild_remove(guild):
     await client.change_presence(activity=discord.Game(name=presence))
 
 @client.command()
-async def 接続(ctx):
+async def hello(ctx):
     if ctx.message.guild:
         if ctx.author.voice is None:
             await ctx.send('ボイスチャンネルに接続してから呼び出してください。')
@@ -82,7 +82,9 @@ async def 接続(ctx):
                 await ctx.author.voice.channel.connect()
 
 @client.command()
-async def 切断(ctx):
+async def bye(ctx):
+    if message.author == client.user:
+        return
     if ctx.message.guild:
         if ctx.voice_client is None:
             await ctx.send('ボイスチャンネルに接続していません。')
@@ -125,7 +127,7 @@ async def on_message(message):
             text = re.sub(pattern, '、画像', text)
             pattern = r'https?://[\w/:%#\$&\?\(\)~\.=\+\-]+'
             text = re.sub(pattern, '、URL', text)
-            text = message.author.name + '、' + text
+            #text = message.author.name + '、' + text
             if text[-1:] == 'w' or text[-1:] == 'W' or text[-1:] == 'ｗ' or text[-1:] == 'W':
                 while text[-2:-1] == 'w' or text[-2:-1] == 'W' or text[-2:-1] == 'ｗ' or text[-2:-1] == 'W':
                     text = text[:-1]
@@ -198,8 +200,9 @@ async def on_command_error(ctx, error):
 async def ヘルプ(ctx):
     message = f'''◆◇◆{client.user.name}の使い方◆◇◆
 {prefix}＋コマンドで命令できます。
-{prefix}接続：ボイスチャンネルに接続します。
-{prefix}切断：ボイスチャンネルから切断します。'''
+{prefix}hello：ボイスチャンネルに接続します。
+{prefix}bye：ボイスチャンネルから切断します。
+{prefix}wiki 調べたい単語：wiki検索ができます。'''
     await ctx.send(message)
 
 def tts(message):
