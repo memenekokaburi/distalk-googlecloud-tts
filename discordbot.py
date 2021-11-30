@@ -52,17 +52,17 @@ tts_client = texttospeech.TextToSpeechClient()
 
 @client.event
 async def on_ready():
-    presence = f'{prefix}ヘルプ | 0/{len(client.guilds)}サーバー'
+    presence = f'{prefix}cmd | 0/{len(client.guilds)}server'
     await client.change_presence(activity=discord.Game(name=presence))
 
 @client.event
 async def on_guild_join(guild):
-    presence = f'{prefix}ヘルプ | {len(client.voice_clients)}/{len(client.guilds)}サーバー'
+    presence = f'{prefix}cmd | {len(client.voice_clients)}/{len(client.guilds)}server'
     await client.change_presence(activity=discord.Game(name=presence))
 
 @client.event
 async def on_guild_remove(guild):
-    presence = f'{prefix}ヘルプ | {len(client.voice_clients)}/{len(client.guilds)}サーバー'
+    presence = f'{prefix}cmd | {len(client.voice_clients)}/{len(client.guilds)}server'
     await client.change_presence(activity=discord.Game(name=presence))
 
 @client.command()
@@ -150,7 +150,7 @@ async def on_message(message):
 async def on_voice_state_update(member, before, after):
     if before.channel is None:
         if member.id == client.user.id:
-            presence = f'{prefix}ヘルプ | {len(client.voice_clients)}/{len(client.guilds)}サーバー'
+            presence = f'{prefix}cmd | {len(client.voice_clients)}/{len(client.guilds)}server'
             await client.change_presence(activity=discord.Game(name=presence))
         else:
             if member.guild.voice_client is None:
@@ -166,7 +166,7 @@ async def on_voice_state_update(member, before, after):
                     member.guild.voice_client.play(source)
     elif after.channel is None:
         if member.id == client.user.id:
-            presence = f'{prefix}ヘルプ | {len(client.voice_clients)}/{len(client.guilds)}サーバー'
+            presence = f'{prefix}cmd | {len(client.voice_clients)}/{len(client.guilds)}server'
             await client.change_presence(activity=discord.Game(name=presence))
         else:
             if member.guild.voice_client:
