@@ -26,6 +26,10 @@
       "description": "ボットの声の種類を設定します。空欄にすると「ja-JP-Wavenet-B」に設定されます。（https://cloud.google.com/text-to-speech/docs/voices）",
       "required": false
     },
+    "TALK_API": {
+      "description": "talkapi",
+      "required": false
+    },
     "GOOGLE_TYPE": "",
     "GOOGLE_PROJECT_ID": "",
     "GOOGLE_PRIVATE_KEY_ID": "",
