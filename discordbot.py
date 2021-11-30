@@ -10,8 +10,8 @@ from google.cloud import texttospeech
 
 #import wikipedia
 import pya3rt #A3RTのTalk APIを使用
-import requests
-import sys #終了時に使用
+# import requests
+# import sys #終了時に使用
 
 prefix = os.getenv('DISCORD_BOT_PREFIX', default='!')
 tts_lang = os.getenv('DISCORD_BOT_LANG', default='ja-JP')
