@@ -83,8 +83,6 @@ async def hello(ctx):
 
 @client.command()
 async def bye(ctx):
-    if message.author == client.user:
-        return
     if ctx.message.guild:
         if ctx.voice_client is None:
             await ctx.send('ボイスチャンネルに接続していません。')
