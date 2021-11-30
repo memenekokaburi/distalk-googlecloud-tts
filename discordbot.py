@@ -93,6 +93,8 @@ async def bye(ctx):
 
 @client.event
 async def on_message(message):
+    if message.author == client.user:
+        return
     if message.content.startswith(prefix):
         pass
     else:
@@ -197,7 +199,7 @@ async def on_command_error(ctx, error):
     await ctx.send(error_msg)
 
 @client.command()
-async def ヘルプ(ctx):
+async def cmd(ctx):
     message = f'''◆◇◆{client.user.name}の使い方◆◇◆
 {prefix}＋コマンドで命令できます。
 {prefix}hello：ボイスチャンネルに接続します。
