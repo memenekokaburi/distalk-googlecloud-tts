@@ -8,7 +8,9 @@ import emoji
 import json
 from google.cloud import texttospeech
 
-prefix = os.getenv('DISCORD_BOT_PREFIX', default='🦑')
+import wikipedia
+
+prefix = os.getenv('DISCORD_BOT_PREFIX', default='!')
 tts_lang = os.getenv('DISCORD_BOT_LANG', default='ja-JP')
 tts_voice = os.getenv('DISCORD_BOT_VOICE', default='ja-JP-Wavenet-B')
 token = os.environ['DISCORD_BOT_TOKEN']
@@ -210,5 +212,16 @@ def tts(message):
     with open('/tmp/message.mp3', 'wb') as out:
         out.write(response.audio_content)
 
+#wiki
+@client.command()
+async def wiki(ctx, *args):
+    print("received message: " + str(args))
+    if client.user != ctx.message.author:
+        try:
+            wikipedia.set_lang("ja")
+            text=wikipedia.summary(args, auto_suggest=False)
+            await ctx.send(text)
+        except:
+            await ctx.send("検索エラー！")
 
 client.run(token)
