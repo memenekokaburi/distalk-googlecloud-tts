@@ -9,9 +9,6 @@ import json
 from google.cloud import texttospeech
 
 import wikipedia
-#import pya3rt #A3RTのTalk APIを使用
-# import requests
-# import sys #終了時に使用
 
 prefix = os.getenv('DISCORD_BOT_PREFIX', default='!')
 tts_lang = os.getenv('DISCORD_BOT_LANG', default='ja-JP')
@@ -231,16 +228,24 @@ async def wiki(ctx, *args):
         except:
             await ctx.send("検索エラー！")
 
-#talkapi
-# @client.command()
-# async def talk(ctx, *args):
-#     talk_url = "https://api.a3rt.recruit.co.jp/talk/v1/smalltalk"
-#     payload = {"apikey": talk_api, "query": args}
-#     response = requests.post(talk_url, data=payload)
-#     try:
-#         await ctx.send(response.json()["results"][0]["reply"])
-#     except:
-#         print(response.json())
-#         await ctx.send("ごめんなさい。もう一度教えて下さい。")
+@client.command()
+async def vote(ctx, title, *select):
+  if len(select) > 10:
+    err = discord.Embed(title = "選択肢が多すぎます。", color = discord.Colour.red())
+    await ctx.send(embed = err)
+    return
 
+  emoji_list = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣", "7⃣", "8⃣", "9⃣", "🔟"]
+
+  # 縦並びの質問項目を生成
+  value = ""
+  for num in range(len(select)):
+    value += emoji_list[num] + select[num] + "\n"
+  # 全ての質問項目を1つのembed項目とする
+  embed = discord.Embed(title = value, color = discord.Colour.red())
+
+  msg = await ctx.send("**" + title+ "**", embed = embed)
+  for i in range(len(select)):
+    await msg.add_reaction(emoji_list[i])
+  return
 client.run(token)
